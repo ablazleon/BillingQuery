@@ -8,9 +8,7 @@ The Google Cloud Shell has application default credentials from its compute inst
 
 First set up `GOOGLE_APPLICATION_CREDENTIALS` and `GOOGLE_CLOUD_PROJECT` environment variables before running any samples.
 
-To run a sample:
-1. `cd samples/snippets` - all samples are located in `java-bigquery/samples/snippets` directory.
-2. `mvn compile exec:java -Dexec.mainClass=com.example.bigquery.SimpleQuery` - this runs the [SimpleQuery sample](https://github.com/googleapis/java-bigquery/blob/master/samples/snippets/src/main/java/com/example/bigquery/SimpleQuery.java) which runs the BigQuery query method. You can update the developer's `TODO` section in the snippet if you wish to run a different query.
+2. `mvn compile exec:java -Dexec.mainClass=com.example.bigquery.Query` - this runs the [SimpleQuery sample](https://github.com/googleapis/java-bigquery/blob/master/samples/snippets/src/main/java/com/example/bigquery/SimpleQuery.java) which runs the BigQuery query method. You can update the developer's `TODO` section in the snippet if you wish to run a different query.
 
 ## Running a sample integration test using command line
 
