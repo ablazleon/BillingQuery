@@ -28,9 +28,9 @@ public class Query {
 
   public static void main(String[] args) {
     // TODO(developer): Replace these variables before running the sample.
-    String projectId = "gcping-349912";
-    String datasetName = "billing";
-    String tableName = "gcp_billing_export_v1_010502_563011_B0AFC5";
+    String projectId = "atos-iberia-idm-cloud-demo-1";
+    String datasetName = "billing_data";
+    String tableName = "gcp_billing_export_v1_01FF7F_D1770F_4DEB3A";
     String query =
         "SELECT invoice.month,\n"
             + " SUM(cost)"
