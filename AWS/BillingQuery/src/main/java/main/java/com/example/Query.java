@@ -1,3 +1,8 @@
+/*
+Code inspired by
+https://gist.github.com/vatshat/f3fa2bbee59edcabf3d9cb4b04d88c72
+
+ */
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicSessionCredentials;
