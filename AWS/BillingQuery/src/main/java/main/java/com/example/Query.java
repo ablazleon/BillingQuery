@@ -97,8 +97,8 @@ class CredentialsClient{
 	public AWSStaticCredentialsProvider getCredentials() throws Exception {
 
         BasicSessionCredentials sessionCredentials = new BasicSessionCredentials(
-				AKIA3D3XGHY2FJR475NQ,
-				OIuupuCX1alObjAc+4/YEOYztaF0jNJnJUhBunWI);
+				"AKIA3D3XGHY2FJR475NQ",
+				"OIuupuCX1alObjAc+4/YEOYztaF0jNJnJUhBunWI");
 		
         return new AWSStaticCredentialsProvider(sessionCredentials);
 	}
