@@ -18,36 +18,12 @@ import com.amazonaws.services.route53domains.AmazonRoute53Domains;
 import com.amazonaws.services.route53domains.AmazonRoute53DomainsClientBuilder;
 import com.amazonaws.services.route53domains.model.*;
 
-public class Test {
+public class Query {
 
 	public static void main(String[] args) {
-		ViewBilling();
-		//CEWithDimension();
-		//CEWithGroupDefinition();
-
+		CEWithDimension();
 	}
-		
-	private static void CEWithGroupDefinition() {
-		final GetCostAndUsageRequest awsCERequest = new GetCostAndUsageRequest()
-        		.withTimePeriod(new DateInterval().withStart("2022-01-01").withEnd("2022-07-30"))
-        		.withGranularity(Granularity.DAILY)
-        		.withMetrics("BlendedCost")
-                .withGroupBy(new GroupDefinition().withType("DIMENSION").withKey("INSTANCE_TYPE"));
-		
-		try {			
-			AWSCostExplorer ce = AWSCostExplorerClientBuilder.standard()
-					.withCredentials(new CredentialsClient().getCredentials())
-					.build();
-			
-			GetCostAndUsageResult ceResult = ce.getCostAndUsage(awsCERequest);
-	        ceResult.getResultsByTime().forEach(resultsByTime -> {
-	            System.out.println(resultsByTime.toString());
-	        });
-		    
-		} catch (final Exception e) {
-			System.out.println(e);
-		}
-	}
+	
 	
 	private static void CEWithDimension() {
 		Expression expression = new Expression();		
@@ -65,7 +41,7 @@ public class Test {
                 
 		try {			
 			AWSCostExplorer ce = AWSCostExplorerClientBuilder.standard()
-					.withCredentials(new CredentialsClient().getCredentials())
+					//.withCredentials(new CredentialsClient().getCredentials())
 					.build();
 			
 			System.out.println(ce.getCostAndUsage(awsCERequest));
@@ -74,20 +50,9 @@ public class Test {
 			System.out.println(e);
 		}
 	}
-	
-	private static void ViewBilling() {
-		final ViewBillingRequest awsVBRequest = new ViewBillingRequest();
-		
-		try {
-			ViewBillingResult vbResult = vb.viewBilling(awsVBRequest);
-            System.out.println(vbResult.getBillingRecords());
-		    
-		} catch (final Exception e) {
-			System.out.println(e);
-		}
-	}
-}
+}	
 
+/*
 class CredentialsClient{
 	
 	CredentialsClient () {
@@ -104,3 +69,4 @@ class CredentialsClient{
 	}
     
 }
+*/
