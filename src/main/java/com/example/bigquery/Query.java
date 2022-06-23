@@ -35,25 +35,35 @@ public class Query {
     String datasetName = "billing_data";
     String tableName = "gcp_billing_export_v1_01FF7F_D1770F_4DEB3A";
     String query =
-        "SELECT invoice.month,\n"
-            + " SUM(cost)"
-            + " + SUM(IFNULL((SELECT SUM(c.amount) FROM UNNEST(credits) c), 0))" 
-            + " AS total,"
-            + " (SUM(CAST(cost * 1000000 AS int64))"   
-            + " + SUM(IFNULL((SELECT SUM(CAST(c.amount * 1000000 as int64)) FROM UNNEST(credits) c), 0))) / 1000000"  
-            + " AS total_exact" 
-            + " FROM `"
-            + projectId
-            + "."
-            + datasetName
-            + "."
-            + tableName
-            + "`"
-            + " GROUP BY 1"           
-            + " ORDER BY 1 ASC";
+            "SELECT invoice.month,\n"
+                    + " SUM(cost)"
+                    + " + SUM(IFNULL((SELECT SUM(c.amount) FROM UNNEST(credits) c), 0))"
+                    + " AS total,"
+                    + " (SUM(CAST(cost * 1000000 AS int64))"
+                    + " + SUM(IFNULL((SELECT SUM(CAST(c.amount * 1000000 as int64)) FROM UNNEST(credits) c), 0))) / 1000000"
+                    + " AS total_exact"
+                    + " FROM `"
+                    + projectId
+                    + "."
+                    + datasetName
+                    + "."
+                    + tableName
+                    + "`"
+                    + " GROUP BY 1"
+                    + " ORDER BY 1 ASC";
     query(query);
 
+    // AWS
     CEWithDimension();
+
+    // Azure
+    AzureProfile profile = new AzureProfile(AzureEnvironment.AZURE);
+    TokenCredential credential = new DefaultAzureCredentialBuilder()
+            .authorityHost(profile.getEnvironment().getActiveDirectoryEndpoint())
+            .build();
+    BillingManager manager = BillingManager
+            .authenticate(credential, profile);
+  }
 
     private static void CEWithDimension() {
       Expression expression = new Expression();
