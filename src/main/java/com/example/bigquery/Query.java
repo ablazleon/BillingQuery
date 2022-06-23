@@ -23,6 +23,20 @@ import com.google.cloud.bigquery.BigQueryOptions;
 import com.google.cloud.bigquery.QueryJobConfiguration;
 import com.google.cloud.bigquery.TableResult;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicSessionCredentials;
+import com.amazonaws.services.costexplorer.AWSCostExplorer;
+import com.amazonaws.services.costexplorer.AWSCostExplorerClientBuilder;
+import com.amazonaws.services.costexplorer.model.*;
+import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
+import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder;
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest;
+import com.amazonaws.services.securitytoken.model.Credentials;
+
+import com.amazonaws.services.route53domains.AmazonRoute53Domains;
+import com.amazonaws.services.route53domains.AmazonRoute53DomainsClientBuilder;
+import com.amazonaws.services.route53domains.model.*;
+
 // Sample to query in a table
 public class Query {
 
