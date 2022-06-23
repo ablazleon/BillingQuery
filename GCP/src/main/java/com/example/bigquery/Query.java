@@ -27,6 +27,9 @@ import com.google.cloud.bigquery.TableResult;
 public class Query {
 
   public static void main(String[] args) {
+
+    //GCP
+
     // TODO(developer): Replace these variables before running the sample.
     String projectId = "atos-iberia-idm-cloud-demo-1";
     String datasetName = "billing_data";
@@ -49,6 +52,34 @@ public class Query {
             + " GROUP BY 1"           
             + " ORDER BY 1 ASC";
     query(query);
+
+    CEWithDimension();
+
+    private static void CEWithDimension() {
+      Expression expression = new Expression();
+      DimensionValues dimensions = new DimensionValues();
+      dimensions.withKey(Dimension.SERVICE);
+      dimensions.withValues("Amazon Route 53");
+
+      expression.withDimensions(dimensions);
+
+      final GetCostAndUsageRequest awsCERequest = new GetCostAndUsageRequest()
+              .withTimePeriod(new DateInterval().withStart("2022-01-01").withEnd("2022-07-30"))
+              .withGranularity(Granularity.DAILY)
+              .withMetrics("BlendedCost")
+              .withFilter(expression);
+
+      try {
+        AWSCostExplorer ce = AWSCostExplorerClientBuilder.standard()
+                //.withCredentials(new CredentialsClient().getCredentials())
+                .build();
+
+        System.out.println(ce.getCostAndUsage(awsCERequest));
+
+      } catch (final Exception e) {
+        System.out.println(e);
+      }
+    }
   }
 
   public static void query(String query) {
