@@ -44,6 +44,7 @@ import com.azure.core.management.AzureEnvironment;
 import com.azure.core.management.Region;
 import com.azure.core.management.profile.AzureProfile;
 import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.core.util.Context;
 
 // Sample to query in a table
 public class Query {
@@ -88,7 +89,7 @@ public class Query {
             .build();
     BillingManager manager = BillingManager
             .authenticate(credential, profile);
-     
+    invoice(manager)
   }
 
   
@@ -138,5 +139,19 @@ public class Query {
       System.out.println("Query not performed \n" + e.toString());
     }
   }
+
+  /*
+   * x-ms-original-file: specification/billing/resource-manager/Microsoft.Billing/stable/2020-05-01/examples/Invoice.json
+   */
+  /**
+   * Sample code: Invoice.
+   *
+   * @param manager Entry point to BillingManager.
+   */
+  public static void invoice(com.azure.resourcemanager.billing.BillingManager manager) {
+    manager.invoices().getWithResponse("{billingAccountName}", "{invoiceName}", Context.NONE);
+  }
+
 }
 // [END bigquery_query]
+
