@@ -70,6 +70,7 @@ public class Query {
     // AWS
     CEWithDimension();
 
+    /*
     // Azure
     AzureProfile profile = new AzureProfile(AzureEnvironment.AZURE);
     TokenCredential credential = new DefaultAzureCredentialBuilder()
@@ -77,6 +78,8 @@ public class Query {
             .build();
     BillingManager manager = BillingManager
             .authenticate(credential, profile);
+
+     */
   }
 
     private static void CEWithDimension() {
