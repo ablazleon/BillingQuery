@@ -43,7 +43,6 @@ import com.azure.core.http.policy.HttpLogDetailLevel;
 import com.azure.core.management.AzureEnvironment;
 import com.azure.core.management.Region;
 import com.azure.core.management.profile.AzureProfile;
-import com.azure.identity.AzureAuthorityHosts;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 
 // Sample to query in a table
