@@ -65,12 +65,13 @@ public class Query {
                     + "`"
                     + " GROUP BY 1"
                     + " ORDER BY 1 ASC";
-    query(query);
 
-    /*
+    
     // AWS
     CEWithDimension();
-    */
+    
+    //GCP
+    query(query);
 
     /*
     // Azure
@@ -80,11 +81,11 @@ public class Query {
             .build();
     BillingManager manager = BillingManager
             .authenticate(credential, profile);
-
-     */
+    */
+     
   }
 
-  /*
+  
     private static void CEWithDimension() {
       Expression expression = new Expression();
       DimensionValues dimensions = new DimensionValues();
@@ -94,7 +95,7 @@ public class Query {
       expression.withDimensions(dimensions);
 
       final GetCostAndUsageRequest awsCERequest = new GetCostAndUsageRequest()
-              .withTimePeriod(new DateInterval().withStart("2022-01-01").withEnd("2022-07-30"))
+              .withTimePeriod(new DateInterval().withStart("2022-06-01").withEnd("2022-06-30"))
               .withGranularity(Granularity.DAILY)
               .withMetrics("BlendedCost")
               .withFilter(expression);
@@ -110,7 +111,7 @@ public class Query {
         System.out.println(e);
       }
     }
-    */
+    
 
   public static void query(String query) {
     try {
