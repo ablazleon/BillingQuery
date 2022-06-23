@@ -17,6 +17,7 @@
 package com.example.bigquery;
 
 // [START bigquery_query]
+import com.azure.resourcemanager.billing.BillingManager;
 import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryException;
 import com.google.cloud.bigquery.BigQueryOptions;
@@ -36,6 +37,18 @@ import com.amazonaws.services.securitytoken.model.Credentials;
 import com.amazonaws.services.route53domains.AmazonRoute53Domains;
 import com.amazonaws.services.route53domains.AmazonRoute53DomainsClientBuilder;
 import com.amazonaws.services.route53domains.model.*;
+
+import com.azure.core.credential.TokenCredential;
+import com.azure.core.http.policy.HttpLogDetailLevel;
+import com.azure.core.management.AzureEnvironment;
+import com.azure.core.management.Region;
+import com.azure.core.management.profile.AzureProfile;
+import com.azure.identity.AzureAuthorityHosts;
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.resourcemanager.AzureResourceManager;
+import com.azure.resourcemanager.compute.models.KnownLinuxVirtualMachineImage;
+import com.azure.resourcemanager.compute.models.VirtualMachine;
+import com.azure.resourcemanager.compute.models.VirtualMachineSizeTypes;
 
 // Sample to query in a table
 public class Query {
@@ -73,7 +86,6 @@ public class Query {
     //GCP
     query(query);
 
-    /*
     // Azure
     AzureProfile profile = new AzureProfile(AzureEnvironment.AZURE);
     TokenCredential credential = new DefaultAzureCredentialBuilder()
@@ -81,7 +93,6 @@ public class Query {
             .build();
     BillingManager manager = BillingManager
             .authenticate(credential, profile);
-    */
      
   }
 
