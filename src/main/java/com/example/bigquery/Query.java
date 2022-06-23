@@ -89,7 +89,7 @@ public class Query {
             .build();
     BillingManager manager = BillingManager
             .authenticate(credential, profile);
-    invoice(manager)
+    invoice(manager);
   }
 
   
