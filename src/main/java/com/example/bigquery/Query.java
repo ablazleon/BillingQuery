@@ -90,7 +90,7 @@ public class Query {
         System.out.println(e);
       }
     }
-  }
+ 
 
   public static void query(String query) {
     try {
