@@ -67,8 +67,10 @@ public class Query {
                     + " ORDER BY 1 ASC";
     query(query);
 
+    /*
     // AWS
     CEWithDimension();
+    */
 
     /*
     // Azure
@@ -82,6 +84,7 @@ public class Query {
      */
   }
 
+  /*
     private static void CEWithDimension() {
       Expression expression = new Expression();
       DimensionValues dimensions = new DimensionValues();
@@ -107,7 +110,7 @@ public class Query {
         System.out.println(e);
       }
     }
- 
+    */
 
   public static void query(String query) {
     try {
