@@ -2,8 +2,8 @@
 
 Nos inspiramos en las queries en los siguientes códigos:
 
-## GCP https://github.com/googleapis/java-bigquery/tree/main/samples
-## AWS
+## GCP ![sample](https://github.com/googleapis/java-bigquery/tree/main/samples) ![client library](https://cloud.google.com/bigquery/docs/reference/libraries#client-libraries-install-java)
+## AWS 
 ## Azure
 
 
