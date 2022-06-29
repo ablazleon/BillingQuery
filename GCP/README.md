@@ -1,5 +1,12 @@
 # Getting Started with BigQuery Samples
 
+Nos inspiramos en las queries en los siguientes códigos:
+
+## GCP https://github.com/googleapis/java-bigquery/tree/main/samples
+## AWS
+## Azure
+
+
 ## Running a sample using Cloud Shell
 
 The Google Cloud Shell has application default credentials from its compute instance which will allow you to run an integration test without having to obtain `GOOGLE_APPLICATION_CREDENTIALS`. Go to [BigQuery Client Readme](https://github.com/googleapis/java-bigquery#samples) to run each sample in the Cloud Shell.
