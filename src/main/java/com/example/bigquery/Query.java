@@ -37,7 +37,8 @@ import com.azure.core.management.Region;
 import com.azure.core.management.profile.AzureProfile;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.core.util.Context;
-
+import com.azure.resourcemanager.billing.BillingManager;
+import com.azure.resourcemanager.costmanagement.CostManagementManager;
 import com.azure.resourcemanager.costmanagement.models.ExportType;
 import com.azure.resourcemanager.costmanagement.models.FunctionType;
 import com.azure.resourcemanager.costmanagement.models.GranularityType;
@@ -95,11 +96,12 @@ public class Query {
     TokenCredential credential = new DefaultAzureCredentialBuilder()
             .authorityHost(profile.getEnvironment().getActiveDirectoryEndpoint())
             .build();
+    // System.out.println(profile.getTenantId());
     CostManagementManager manager = CostManagementManager
-    .authenticate(credential, profile);
+            .authenticate(credential, profile);
 
     try{
-        
+        customerQueryGroupingModern(manager);
     }
      catch (final Exception e) {
         System.out.println(e);
@@ -173,7 +175,7 @@ public class Query {
         costManagementManager
             .queries()
             .usageWithResponse(
-                "providers/Microsoft.Billing/billingAccounts/12345:6789/customers/5678",
+                "providers/Microsoft.Billing/billingAccounts/0b6b4c37-f1bf-4ce2-a367-85ec50c803ea/customers/5678",
                 new QueryDefinition()
                     .withType(ExportType.USAGE)
                     .withTimeframe(TimeframeType.THE_LAST_MONTH)
