@@ -17,7 +17,7 @@
 package com.example.bigquery;
 
 // [START bigquery_query]
-import com.azure.resourcemanager.billing.BillingManager;
+
 import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryException;
 import com.google.cloud.bigquery.BigQueryOptions;
@@ -29,14 +29,6 @@ import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.services.costexplorer.AWSCostExplorer;
 import com.amazonaws.services.costexplorer.AWSCostExplorerClientBuilder;
 import com.amazonaws.services.costexplorer.model.*;
-import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
-import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder;
-import com.amazonaws.services.securitytoken.model.AssumeRoleRequest;
-import com.amazonaws.services.securitytoken.model.Credentials;
-
-import com.amazonaws.services.route53domains.AmazonRoute53Domains;
-import com.amazonaws.services.route53domains.AmazonRoute53DomainsClientBuilder;
-import com.amazonaws.services.route53domains.model.*;
 
 import com.azure.core.credential.TokenCredential;
 import com.azure.core.http.policy.HttpLogDetailLevel;
@@ -45,6 +37,22 @@ import com.azure.core.management.Region;
 import com.azure.core.management.profile.AzureProfile;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.core.util.Context;
+
+import com.azure.resourcemanager.costmanagement.models.ExportType;
+import com.azure.resourcemanager.costmanagement.models.FunctionType;
+import com.azure.resourcemanager.costmanagement.models.GranularityType;
+import com.azure.resourcemanager.costmanagement.models.OperatorType;
+import com.azure.resourcemanager.costmanagement.models.QueryAggregation;
+import com.azure.resourcemanager.costmanagement.models.QueryColumnType;
+import com.azure.resourcemanager.costmanagement.models.QueryComparisonExpression;
+import com.azure.resourcemanager.costmanagement.models.QueryDataset;
+import com.azure.resourcemanager.costmanagement.models.QueryDefinition;
+import com.azure.resourcemanager.costmanagement.models.QueryFilter;
+import com.azure.resourcemanager.costmanagement.models.QueryGrouping;
+import com.azure.resourcemanager.costmanagement.models.TimeframeType;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 // Sample to query in a table
 public class Query {
@@ -87,9 +95,11 @@ public class Query {
     TokenCredential credential = new DefaultAzureCredentialBuilder()
             .authorityHost(profile.getEnvironment().getActiveDirectoryEndpoint())
             .build();
+    CostManagementManager manager = CostManagementManager
+    .authenticate(credential, profile);
 
     try{
-
+        
     }
      catch (final Exception e) {
         System.out.println(e);
@@ -152,17 +162,47 @@ public class Query {
     }
   }
 
-  /*
-   * x-ms-original-file: specification/billing/resource-manager/Microsoft.Billing/stable/2020-05-01/examples/Invoice.json
-   */
-  /**
-   * Sample code: Invoice.
-   *
-   * @param manager Entry point to BillingManager.
-   */
-  public static void invoice(com.azure.resourcemanager.billing.BillingManager manager) {
-    manager.invoices().getWithResponse("{billingAccountName}", "{invoiceName}", Context.NONE);
-  }
+  //https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/costmanagement/azure-resourcemanager-costmanagement/src/samples/java/com/azure/resourcemanager/costmanagement/QueryUsageSamples.java
+      /**
+     * Sample code: CustomerQueryGrouping-Modern.
+     *
+     * @param costManagementManager Entry point to CostManagementManager.
+     */
+    public static void customerQueryGroupingModern(
+        com.azure.resourcemanager.costmanagement.CostManagementManager costManagementManager) {
+        costManagementManager
+            .queries()
+            .usageWithResponse(
+                "providers/Microsoft.Billing/billingAccounts/12345:6789/customers/5678",
+                new QueryDefinition()
+                    .withType(ExportType.USAGE)
+                    .withTimeframe(TimeframeType.THE_LAST_MONTH)
+                    .withDataset(
+                        new QueryDataset()
+                            .withGranularity(GranularityType.fromString("None"))
+                            .withAggregation(
+                                mapOf(
+                                    "totalCost",
+                                    new QueryAggregation().withName("PreTaxCost").withFunction(FunctionType.SUM)))
+                            .withGrouping(
+                                Arrays
+                                    .asList(
+                                        new QueryGrouping()
+                                            .withType(QueryColumnType.DIMENSION)
+                                            .withName("ResourceGroup")))),
+                Context.NONE);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> Map<String, T> mapOf(Object... inputs) {
+        Map<String, T> map = new HashMap<>();
+        for (int i = 0; i < inputs.length; i += 2) {
+            String key = (String) inputs[i];
+            T value = (T) inputs[i + 1];
+            map.put(key, value);
+        }
+        return map;
+    }
 
 }
 // [END bigquery_query]
