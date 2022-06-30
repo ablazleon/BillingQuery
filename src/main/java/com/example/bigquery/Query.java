@@ -87,11 +87,9 @@ public class Query {
     TokenCredential credential = new DefaultAzureCredentialBuilder()
             .authorityHost(profile.getEnvironment().getActiveDirectoryEndpoint())
             .build();
-    BillingManager manager = BillingManager
-            .authenticate(credential, profile);
 
     try{
-        System.out.println(manager.invoices().get("Atos CES España - Entorno Demo", "inoviceName"));
+
     }
      catch (final Exception e) {
         System.out.println(e);
