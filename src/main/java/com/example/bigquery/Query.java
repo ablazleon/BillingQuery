@@ -89,7 +89,21 @@ public class Query {
             .build();
     BillingManager manager = BillingManager
             .authenticate(credential, profile);
-    invoice(manager);
+
+    try{
+        System.out.println(manager.invoices().get("Atos CES España - Entorno Demo", "inoviceName"));
+    }
+     catch (final Exception e) {
+        System.out.println(e);
+    }
+            /*
+    try {
+        invoice(manager);
+
+      } catch (final Exception e) {
+        System.out.println(e);
+      }
+      */
   }
 
   
