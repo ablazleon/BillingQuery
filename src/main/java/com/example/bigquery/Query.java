@@ -99,6 +99,9 @@ public class Query {
     // System.out.println(profile.getTenantId());
     CostManagementManager manager = CostManagementManager
             .authenticate(credential, profile);
+    System.out.println(System.getenv("AZURE_TENANT_ID"));
+    System.out.println(System.getenv("AZURE_CLIENT_ID"));
+    System.out.println(System.getenv("AZURE_CLIENT_SECRET"));
 
     try{
         customerQueryGroupingModern(manager);
