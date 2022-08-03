@@ -119,7 +119,7 @@ public class Query {
       */
   }
 
-  
+ // Inspired by this comment https://gist.github.com/vatshat/f3fa2bbee59edcabf3d9cb4b04d88c72?permalink_comment_id=4184585 
     private static void CEWithDimension() {
       Expression expression = new Expression();
       DimensionValues dimensions = new DimensionValues();
