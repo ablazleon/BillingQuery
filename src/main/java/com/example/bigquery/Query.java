@@ -103,12 +103,14 @@ public class Query {
     System.out.println(System.getenv("AZURE_CLIENT_ID"));
     System.out.println(System.getenv("AZURE_CLIENT_SECRET"));
 
+    
     try{
-        customerQueryGroupingModern(manager);
+        subscriptionQueryLegacy(manager);
     }
      catch (final Exception e) {
         System.out.println(e);
     }
+    
             /*
     try {
         invoice(manager);
@@ -208,6 +210,30 @@ public class Query {
         }
         return map;
     }
+
+    /**
+     * Este código funciona en la función de prueba de azure
+     * 
+     * Sample code: SubscriptionQuery-Legacy.
+     *
+     * @param costManagementManager Entry point to CostManagementManager.
+     */
+    public static void subscriptionQueryLegacy(
+        com.azure.resourcemanager.costmanagement.CostManagementManager costManagementManager) {
+        costManagementManager
+            .queries()
+            .usageWithResponse(
+                "subscriptions/0b6b4c37-f1bf-4ce2-a367-85ec50c803ea",
+                new QueryDefinition()
+                    .withType(ExportType.USAGE)
+                    .withTimeframe(TimeframeType.MONTH_TO_DATE)
+                    .withDataset(
+                        new QueryDataset()
+                            .withGranularity(GranularityType.DAILY)
+                           ),
+                Context.NONE);
+    }
+
 
 }
 // [END bigquery_query]
