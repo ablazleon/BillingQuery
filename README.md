@@ -4,7 +4,7 @@ Nos inspiramos en las queries en los siguientes códigos:
 
 ## GCP [sample](https://github.com/googleapis/java-bigquery/tree/main/samples) [client library](https://cloud.google.com/bigquery/docs/reference/libraries#client-libraries-install-java)
 ## AWS 
-## Azure [sample](https://github.com/Azure/azure-sdk-for-java/blob/azure-resourcemanager-billing_1.0.0-beta.2/sdk/billing/azure-resourcemanager-billing/SAMPLE.md#invoices_get)
+## Azure [sample](https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/costmanagement/azure-resourcemanager-costmanagement/src/samples/java/com/azure/resourcemanager/costmanagement/QueryUsageSamples.java)
 
 
 ## Running a sample using Cloud Shell
