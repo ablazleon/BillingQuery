@@ -60,37 +60,6 @@ public class Query {
 
   public static void main(String[] args) {
 
-    //GCP
-
-    // TODO(developer): Replace these variables before running the sample.
-    String projectId = "atos-iberia-idm-cloud-demo-1";
-    String datasetName = "billing_data";
-    String tableName = "gcp_billing_export_v1_01FF7F_D1770F_4DEB3A";
-    String query =
-            "SELECT invoice.month,\n"
-                    + " SUM(cost)"
-                    + " + SUM(IFNULL((SELECT SUM(c.amount) FROM UNNEST(credits) c), 0))"
-                    + " AS total,"
-                    + " (SUM(CAST(cost * 1000000 AS int64))"
-                    + " + SUM(IFNULL((SELECT SUM(CAST(c.amount * 1000000 as int64)) FROM UNNEST(credits) c), 0))) / 1000000"
-                    + " AS total_exact"
-                    + " FROM `"
-                    + projectId
-                    + "."
-                    + datasetName
-                    + "."
-                    + tableName
-                    + "`"
-                    + " GROUP BY 1"
-                    + " ORDER BY 1 ASC";
-
-    
-    // AWS
-    CEWithDimension();
-    
-    //GCP
-    query(query);
-
     // Azure
     AzureProfile profile = new AzureProfile(AzureEnvironment.AZURE);
     TokenCredential credential = new DefaultAzureCredentialBuilder()
@@ -110,63 +79,7 @@ public class Query {
      catch (final Exception e) {
         System.out.println(e);
     }
-    
-            /*
-    try {
-        invoice(manager);
 
-      } catch (final Exception e) {
-        System.out.println(e);
-      }
-      */
-  }
-
- // Inspired by this comment https://gist.github.com/vatshat/f3fa2bbee59edcabf3d9cb4b04d88c72?permalink_comment_id=4184585 
-    private static void CEWithDimension() {
-      Expression expression = new Expression();
-      DimensionValues dimensions = new DimensionValues();
-      dimensions.withKey(Dimension.SERVICE);
-      dimensions.withValues("Amazon Route 53");
-
-      expression.withDimensions(dimensions);
-
-      final GetCostAndUsageRequest awsCERequest = new GetCostAndUsageRequest()
-              .withTimePeriod(new DateInterval().withStart("2022-06-01").withEnd("2022-06-30"))
-              .withGranularity(Granularity.DAILY)
-              .withMetrics("BlendedCost")
-              .withFilter(expression);
-
-      try {
-        AWSCostExplorer ce = AWSCostExplorerClientBuilder.standard()
-                //.withCredentials(new CredentialsClient().getCredentials())
-                .build();
-
-        System.out.println(ce.getCostAndUsage(awsCERequest));
-
-      } catch (final Exception e) {
-        System.out.println(e);
-      }
-    }
-    
-
-  public static void query(String query) {
-    try {
-      // Initialize client that will be used to send requests. This client only needs to be created
-      // once, and can be reused for multiple requests.
-      BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
-
-      QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
-
-      TableResult results = bigquery.query(queryConfig);
-
-      results
-          .iterateAll()
-          .forEach(row -> row.forEach(val -> System.out.printf("%s,", val.toString())));
-
-      System.out.println("Query performed successfully.");
-    } catch (BigQueryException | InterruptedException e) {
-      System.out.println("Query not performed \n" + e.toString());
-    }
   }
 
   //https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/costmanagement/azure-resourcemanager-costmanagement/src/samples/java/com/azure/resourcemanager/costmanagement/QueryUsageSamples.java
@@ -236,5 +149,5 @@ public class Query {
 
 
 }
-// [END bigquery_query]
+
 
