@@ -18,37 +18,20 @@ package com.example.bigquery;
 
 // [START bigquery_query]
 
-import com.google.cloud.bigquery.BigQuery;
-import com.google.cloud.bigquery.BigQueryException;
-import com.google.cloud.bigquery.BigQueryOptions;
-import com.google.cloud.bigquery.QueryJobConfiguration;
-import com.google.cloud.bigquery.TableResult;
-
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicSessionCredentials;
-import com.amazonaws.services.costexplorer.AWSCostExplorer;
-import com.amazonaws.services.costexplorer.AWSCostExplorerClientBuilder;
-import com.amazonaws.services.costexplorer.model.*;
 
 import com.azure.core.credential.TokenCredential;
-import com.azure.core.http.policy.HttpLogDetailLevel;
 import com.azure.core.management.AzureEnvironment;
-import com.azure.core.management.Region;
 import com.azure.core.management.profile.AzureProfile;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.billing.BillingManager;
 import com.azure.resourcemanager.costmanagement.CostManagementManager;
 import com.azure.resourcemanager.costmanagement.models.ExportType;
 import com.azure.resourcemanager.costmanagement.models.FunctionType;
 import com.azure.resourcemanager.costmanagement.models.GranularityType;
-import com.azure.resourcemanager.costmanagement.models.OperatorType;
 import com.azure.resourcemanager.costmanagement.models.QueryAggregation;
 import com.azure.resourcemanager.costmanagement.models.QueryColumnType;
-import com.azure.resourcemanager.costmanagement.models.QueryComparisonExpression;
 import com.azure.resourcemanager.costmanagement.models.QueryDataset;
 import com.azure.resourcemanager.costmanagement.models.QueryDefinition;
-import com.azure.resourcemanager.costmanagement.models.QueryFilter;
 import com.azure.resourcemanager.costmanagement.models.QueryGrouping;
 import com.azure.resourcemanager.costmanagement.models.TimeframeType;
 import java.util.Arrays;
