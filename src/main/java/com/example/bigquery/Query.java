@@ -37,6 +37,7 @@ import com.azure.resourcemanager.costmanagement.models.TimeframeType;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.log4j.BasicConfigurator;
 
 // Sample to query in a table
 public class Query {
@@ -54,10 +55,12 @@ public class Query {
     System.out.println(System.getenv("AZURE_TENANT_ID"));
     System.out.println(System.getenv("AZURE_CLIENT_ID"));
     System.out.println(System.getenv("AZURE_CLIENT_SECRET"));
-
     
+    BasicConfigurator.configure();
+
     try{
         subscriptionQueryLegacy(manager);
+        //customerQueryGroupingModern(manager);
     }
      catch (final Exception e) {
         System.out.println(e);
