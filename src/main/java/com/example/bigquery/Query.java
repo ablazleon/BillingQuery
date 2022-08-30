@@ -29,6 +29,7 @@ import com.amazonaws.services.costexplorer.AWSCostExplorerClientBuilder;
 import com.amazonaws.services.costexplorer.model.*;
 
 import com.azure.core.credential.TokenCredential;
+import com.azure.core.http.HttpRequest;
 import com.azure.core.http.rest.Response;
 import com.azure.core.management.AzureEnvironment;
 import com.azure.core.management.profile.AzureProfile;
@@ -40,14 +41,18 @@ import com.azure.resourcemanager.costmanagement.models.ExportType;
 import com.azure.resourcemanager.costmanagement.models.FunctionType;
 import com.azure.resourcemanager.costmanagement.models.GranularityType;
 import com.azure.resourcemanager.costmanagement.models.QueryAggregation;
+import com.azure.resourcemanager.costmanagement.models.QueryColumn;
 import com.azure.resourcemanager.costmanagement.models.QueryColumnType;
 import com.azure.resourcemanager.costmanagement.models.QueryDataset;
 import com.azure.resourcemanager.costmanagement.models.QueryDefinition;
 import com.azure.resourcemanager.costmanagement.models.QueryGrouping;
 import com.azure.resourcemanager.costmanagement.models.QueryResult;
 import com.azure.resourcemanager.costmanagement.models.TimeframeType;
+
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.log4j.BasicConfigurator;
 
@@ -114,8 +119,10 @@ public class Query {
 
   //https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/costmanagement/azure-resourcemanager-costmanagement/src/samples/java/com/azure/resourcemanager/costmanagement/QueryUsageSamples.java
 
+
     /**
      * Este código funciona en la función de prueba de azure
+     * https://docs.microsoft.com/en-us/rest/api/cost-management/query/usage?tabs=HTTP#queryresult
      * 
      * Sample code: SubscriptionQuery-Legacy.
      *
@@ -124,20 +131,44 @@ public class Query {
      */
     public static void subscriptionQueryTraza(
         com.azure.resourcemanager.costmanagement.CostManagementManager costManagementManager) {
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!! Resultado query Azure "+ 
-            costManagementManager
+        Response<QueryResult> rqr = costManagementManager
             .queries()
             .usageWithResponse(
                 "subscriptions/0b6b4c37-f1bf-4ce2-a367-85ec50c803ea",
                 new QueryDefinition()
-                    .withType(ExportType.USAGE)
+                    .withType(ExportType.ACTUAL_COST)
                     .withTimeframe(TimeframeType.MONTH_TO_DATE)
                     .withDataset(
                         new QueryDataset()
                             .withGranularity(GranularityType.DAILY)
                            ),
-                Context.NONE).getRequest().getBody()
-        );
+                Context.NONE);
+        
+        System.out.println("!!!!!!! Azure query" + rqr.getRequest().getBodyAsBinaryData()); // {"type":"Usage","timeframe":"MonthToDate","dataset":{"granularity":"Daily"}}
+        System.out.println(rqr.getValue().innerModel().nextLink()); 
+        
+        for (QueryColumn i : rqr.getValue().innerModel().columns()) System.out.println(i.name());
+        Integer n = 0;
+        Integer m = 0;
+        for (List<Object> i : rqr.getValue().innerModel().rows()) {
+            n++;
+            for (Object j : i) {
+                m++;
+                System.out.println(j.toString()+" "+n+" "+ m);
+            }
+        }
+
+        for (QueryColumn i : rqr.getValue().columns()) System.out.println(i.name());
+        Integer l = 0;
+        Integer q = 0;
+        for (List<Object> i : rqr.getValue().rows()) {
+            l++;
+            for (Object j : i) {
+                q++;
+                System.out.println(j.toString()+" "+l+" "+ q);
+            }
+        }
+        
     }
 
     // Inspired by this comment https://gist.github.com/vatshat/f3fa2bbee59edcabf3d9cb4b04d88c72?permalink_comment_id=4184585
