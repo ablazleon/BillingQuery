@@ -137,11 +137,23 @@ public class Query {
                 "subscriptions/0b6b4c37-f1bf-4ce2-a367-85ec50c803ea",
                 new QueryDefinition()
                     .withType(ExportType.ACTUAL_COST)
-                    .withTimeframe(TimeframeType.MONTH_TO_DATE)
+                    .withTimeframe(TimeframeType.THE_LAST_MONTH)
                     .withDataset(
                         new QueryDataset()
-                            .withGranularity(GranularityType.DAILY)
-                           ),
+                            .withGranularity(GranularityType.fromString("None"))
+                            .withAggregation(
+                                mapOf(
+                                    "totalCost",
+                                    new QueryAggregation().withName("PreTaxCost").withFunction(FunctionType.SUM)))
+                            /*
+                            .withGrouping(
+                                Arrays
+                                    .asList(
+                                        new QueryGrouping()
+                                            .withType(QueryColumnType.DIMENSION)
+                                            .withName("ResourceType")))
+                            */      
+                                            ),
                 Context.NONE);
         
         System.out.println("!!!!!!! Azure query" + rqr.getRequest().getBodyAsBinaryData()); // {"type":"Usage","timeframe":"MonthToDate","dataset":{"granularity":"Daily"}}
@@ -216,6 +228,17 @@ public class Query {
         } catch (BigQueryException | InterruptedException e) {
             System.out.println("Query not performed \n" + e.toString());
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> Map<String, T> mapOf(Object... inputs) {
+        Map<String, T> map = new HashMap<>();
+        for (int i = 0; i < inputs.length; i += 2) {
+            String key = (String) inputs[i];
+            T value = (T) inputs[i + 1];
+            map.put(key, value);
+        }
+        return map;
     }
 
 }
