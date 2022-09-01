@@ -15,7 +15,7 @@ The Google Cloud Shell has application default credentials from its compute inst
 
 First set up `GOOGLE_APPLICATION_CREDENTIALS` and `GOOGLE_CLOUD_PROJECT` environment variables before running any samples.
 
-2. `mvn compile exec:java -Dexec.mainClass=com.example.bigquery.Query` - this runs the [SimpleQuery sample](https://github.com/googleapis/java-bigquery/blob/master/samples/snippets/src/main/java/com/example/bigquery/SimpleQuery.java) which runs the BigQuery query method. You can update the developer's `TODO` section in the snippet if you wish to run a different query.
+2. `mvn compile exec:java -Dexec.mainClass=com.example.bigquery.Query -Dexec.cleanupDaemonThreads=false` - this runs the [SimpleQuery sample](https://github.com/googleapis/java-bigquery/blob/master/samples/snippets/src/main/java/com/example/bigquery/SimpleQuery.java) which runs the BigQuery query method. You can update the developer's `TODO` section in the snippet if you wish to run a different query. The -Dexec.cleanupDaemonThreads=false is used as described there (https://stackoverflow.com/questions/51871635/couldnt-destroy-threadgroup-org-codehaus-mojo-exec-execjavamojoisolatedthreadg) so the maven command for testing code does not fail using the daemon to close the threads.
 
 ## Running a sample integration test using command line
 
