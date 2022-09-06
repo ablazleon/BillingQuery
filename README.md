@@ -3,7 +3,7 @@
 Nos inspiramos en las queries en los siguientes códigos:
 
 ## GCP [sample](https://github.com/googleapis/java-bigquery/tree/main/samples) [client library](https://cloud.google.com/bigquery/docs/reference/libraries#client-libraries-install-java)
-## AWS 
+## AWS [sample](https://gist.github.com/vatshat/f3fa2bbee59edcabf3d9cb4b04d88c72?permalink_comment_id=4184585)
 ## Azure [sample](https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/costmanagement/azure-resourcemanager-costmanagement/src/samples/java/com/azure/resourcemanager/costmanagement/QueryUsageSamples.java)
 
 
