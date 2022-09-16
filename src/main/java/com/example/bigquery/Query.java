@@ -134,7 +134,7 @@ public class Query {
         Response<QueryResult> rqr = costManagementManager
             .queries()
             .usageWithResponse(
-                "subscriptions/0b6b4c37-f1bf-4ce2-a367-85ec50c803ea",
+                "subscriptions/XXXXXXXXXXXXXX",
                 new QueryDefinition()
                     .withType(ExportType.ACTUAL_COST)
                     .withTimeframe(TimeframeType.THE_LAST_MONTH)
